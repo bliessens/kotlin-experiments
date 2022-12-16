@@ -1,0 +1,6 @@
+<com.melexis.wallbox.WallBoxRegisteredEvent>
+  <wallBox defined-in="com.melexis.wallbox.AbstractWallBoxEvent">
+    <value>654321</value>
+  </wallBox>
+  <wallBox reference="../wallBox"/>
+</com.melexis.wallbox.WallBoxRegisteredEvent>

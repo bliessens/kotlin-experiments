@@ -29,6 +29,10 @@ data class WallBoxId(val value: String) {
     init {
         require(value.length in 6..12) { println("WallBox identifiers are 10 to 25 chars long") }
     }
+
+    override fun toString(): String {
+        return value
+    }
 }
 
 abstract class AbstractWallBoxCommand(open val wallBox: WallBoxId)
