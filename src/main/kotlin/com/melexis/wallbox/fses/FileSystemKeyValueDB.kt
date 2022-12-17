@@ -1,5 +1,8 @@
-package com.melexis.wallbox
+package com.melexis.wallbox.fses
 
+import com.melexis.wallbox.AbstractWallBoxEvent
+import com.melexis.wallbox.KeyValueDB
+import com.melexis.wallbox.WallBoxId
 import java.io.File
 import java.time.Instant
 

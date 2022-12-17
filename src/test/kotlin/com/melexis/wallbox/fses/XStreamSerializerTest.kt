@@ -1,5 +1,7 @@
-package com.melexis.wallbox
+package com.melexis.wallbox.fses
 
+import com.melexis.wallbox.WallBoxId
+import com.melexis.wallbox.WallBoxRegisteredEvent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.Clock

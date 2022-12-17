@@ -1,4 +1,4 @@
-package com.melexis.wallbox
+package com.melexis.wallbox.fses
 
 import com.thoughtworks.xstream.XStream
 import java.time.Clock

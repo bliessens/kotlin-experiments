@@ -1,5 +1,6 @@
 package com.melexis.wallbox
 
+import com.melexis.wallbox.fses.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

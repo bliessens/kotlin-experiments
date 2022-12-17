@@ -1,4 +1,4 @@
-package com.melexis.wallbox
+package com.melexis.wallbox.fses
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
