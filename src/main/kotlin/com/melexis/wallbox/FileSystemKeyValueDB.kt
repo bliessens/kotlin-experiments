@@ -10,11 +10,11 @@ object DefaultFileNameGenerator : (Serializer, Serialized) -> String {
     }
 }
 
-class FileSystemKeyValueStore(
+class FileSystemKeyValueDB(
     val rootDir: File,
     val serializer: Serializer,
     val fileNameGenerator: (Serializer, Serialized) -> String = DefaultFileNameGenerator
-) : KeyValueStore<AbstractWallBoxEvent, WallBoxId> {
+) : KeyValueDB<AbstractWallBoxEvent, WallBoxId> {
 
 
     override fun load(id: WallBoxId): List<AbstractWallBoxEvent> {

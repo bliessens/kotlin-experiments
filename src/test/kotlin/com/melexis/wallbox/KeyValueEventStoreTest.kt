@@ -11,7 +11,7 @@ import org.mockito.kotlin.verify
 
 class KeyValueEventStoreTest {
 
-    val mock = mock(KeyValueStore::class.java) as KeyValueStore<AbstractWallBoxEvent, WallBoxId>
+    val mock = mock(KeyValueDB::class.java) as KeyValueDB<AbstractWallBoxEvent, WallBoxId>
     val eventStore = KeyValueEventStore(mock)
 
     val captor = argumentCaptor<WallBoxId>()

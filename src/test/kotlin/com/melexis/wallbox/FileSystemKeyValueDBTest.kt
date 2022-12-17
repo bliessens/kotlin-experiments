@@ -8,7 +8,7 @@ import java.io.File
 import java.time.Clock
 import java.time.Instant
 
-class FileSystemKeyValueStoreTest {
+class FileSystemKeyValueDBTest {
 
     object ser : Serializer {
         override fun <T> deserialize(ser: Serialized): T {
@@ -85,7 +85,7 @@ class FileSystemKeyValueStoreTest {
         @Test
         fun testWriteEvents() {
             "".run { }
-            val eventStore = FileSystemKeyValueStore(tempFolder.root, XStreamSerializer(clock = Clock.systemUTC()))
+            val eventStore = FileSystemKeyValueDB(tempFolder.root, XStreamSerializer(clock = Clock.systemUTC()))
             val events = listOf(
                 WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
                 WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
@@ -102,7 +102,7 @@ class FileSystemKeyValueStoreTest {
 
         @Test
         fun readEvents() {
-            val eventStore = FileSystemKeyValueStore(
+            val eventStore = FileSystemKeyValueDB(
                 File("src/test/resources/eventStore"),
                 XStreamSerializer(clock = Clock.systemUTC())
             )

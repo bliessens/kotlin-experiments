@@ -8,7 +8,7 @@ class WallBoxServiceTest {
     private val id: WallBoxId = WallBoxId("12345678900")
 
     val storageMap = mutableMapOf<WallBoxId, List<AbstractWallBoxEvent>>()
-    val keyValueStore = InMemoryKeyValueStore(storageMap)
+    val keyValueStore = InMemoryKeyValueDB(storageMap)
     val eventStore = KeyValueEventStore(keyValueStore)
     val wallBoxService = WallBoxService(eventStore)
 

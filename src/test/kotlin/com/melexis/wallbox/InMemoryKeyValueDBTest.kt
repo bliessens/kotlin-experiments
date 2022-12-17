@@ -4,9 +4,9 @@ import org.assertj.core.api.KotlinAssertions.assertThat
 import org.assertj.core.api.iterable.Extractor
 import org.junit.jupiter.api.Test
 
-class InMemoryKeyValueStoreTest {
+class InMemoryKeyValueDBTest {
 
-    val eventStore = InMemoryKeyValueStore()
+    val eventStore = InMemoryKeyValueDB()
 
     val wallBoxId = WallBoxId("123455678899")
 
