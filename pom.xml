@@ -86,11 +86,7 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
@@ -135,9 +131,7 @@
             <groupId>io.kotest</groupId>
             <artifactId>kotest-runner-junit5-jvm</artifactId>
             <version>${kotest.version}</version>
-            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>io.kotest</groupId>
             <artifactId>kotest-property-jvm</artifactId>
@@ -151,15 +145,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.wuerl.kotlin</groupId>
-            <artifactId>assertj-core-kotlin</artifactId>
-            <version>0.2.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mockito.kotlin</groupId>
             <artifactId>mockito-kotlin</artifactId>
             <version>4.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
 
