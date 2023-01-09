@@ -1,10 +1,15 @@
 package com.melexis.wallbox
 
-import com.melexis.wallbox.fses.*
+import com.melexis.wallbox.fses.DefaultFileNameGenerator
+import com.melexis.wallbox.fses.FileSystemKeyValueDB
+import com.melexis.wallbox.fses.Serialized
+import com.melexis.wallbox.fses.Serializer
+import com.melexis.wallbox.fses.XStreamSerializer
+import com.melexis.wallbox.fses.sequenceNumber
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import java.time.Clock
 import java.time.Instant
@@ -62,11 +67,9 @@ class FileSystemKeyValueDBTest {
     @Nested
     inner class Serialization {
 
-        val tempFolder = TemporaryFolder().also { it.create() }
-
         @Test
-        fun testConversionOfFileModifiedDateToInstant() {
-            val newFile = tempFolder.newFile()
+        fun testConversionOfFileModifiedDateToInstant(@TempDir tempFolder: File) {
+            val newFile = File(tempFolder, "dfdsafsf")
             newFile.createNewFile()
 
             assertThat(Instant.ofEpochMilli(newFile.lastModified()))
@@ -79,14 +82,13 @@ class FileSystemKeyValueDBTest {
     @Nested
     inner class EventStore {
 
-        val tempFolder = TemporaryFolder().apply { create() }
-
         val wallBox = WallBoxId("654321")
 
         @Test
-        fun testWriteEvents() {
+        fun testWriteEvents(@TempDir tempFolder: File) {
+
             "".run { }
-            val eventStore = FileSystemKeyValueDB(tempFolder.root, XStreamSerializer(clock = Clock.systemUTC()))
+            val eventStore = FileSystemKeyValueDB(tempFolder, XStreamSerializer(clock = Clock.systemUTC()))
             val events = listOf(
                 WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
                 WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
@@ -95,7 +97,7 @@ class FileSystemKeyValueDBTest {
 
             eventStore.persist(wallBox, events)
 
-            val expectedStorageDir = File(tempFolder.root, wallBox.toString())
+            val expectedStorageDir = File(tempFolder, wallBox.toString())
             assertThat(expectedStorageDir).exists()
             assertThat(expectedStorageDir.listFiles()).hasSize(events.size)
 

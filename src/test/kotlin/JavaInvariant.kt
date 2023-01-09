@@ -1,7 +1,6 @@
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class JavaInvariant {
-
 
     @Test
     fun kotlinIsCovariant() {
@@ -16,7 +15,6 @@ class JavaInvariant {
     }
 
     private fun collectionCall(col: Collection<CharSequence>) {
-
     }
 
     @Test
