@@ -38,7 +38,6 @@ data class Address(
 fun main() {
     val address = Address.build {
         phone = "0 (555) 555 55 55"
-//        phone { "0 (555) 555 55 55" }
         title = "New Address"
         no = "17A"
         city = "NewYork"
