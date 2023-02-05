@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("kotlin")
     id("maven-publish")
@@ -20,7 +22,12 @@ dependencies {
 
 group = "com.melexis"
 version = "1.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+
+kotlin {
+    jvmToolchain {
+        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -32,8 +39,10 @@ tasks.withType<Test>() {
     useJUnitPlatform()
 }
 
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
+tasks.withType<KotlinCompile>() {
+//    kotlinOptions {
+//        freeCompilerArgs = listOf("-Xexplicit-api=strict")
+//    }
 }
 
 tasks.withType<Javadoc>() {
