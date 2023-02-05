@@ -27,6 +27,4 @@ tasks.create("generateModuleSkeletons") {
             }
         }
     }
-
 }
-

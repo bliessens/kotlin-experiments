@@ -1,3 +1,4 @@
+import com.melexis.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -11,13 +12,13 @@ repositories {
 }
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
-//    api("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.8.10")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation("org.assertj:assertj-core:3.23.1")
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // api("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockito}")
+    testImplementation("org.assertj:assertj-core:${Versions.assertj}")
 }
 
 group = "com.melexis"
@@ -25,7 +26,7 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -39,11 +40,11 @@ tasks.withType<Test>() {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile>() {
+//tasks.withType<KotlinCompile>() {
 //    kotlinOptions {
 //        freeCompilerArgs = listOf("-Xexplicit-api=strict")
 //    }
-}
+//}
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
