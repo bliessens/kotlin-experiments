@@ -22,8 +22,8 @@ class RandomValuesTest {
     @Test
     fun testRandomStrings() {
         val values = randomString(5).take(10)
-        for (va in values) {
-            println(va)
+        for (value in values) {
+            assertThat(value).hasSize(5)
         }
     }
 
