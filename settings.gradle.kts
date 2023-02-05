@@ -7,3 +7,4 @@
 rootProject.name = "kotlin-experiments"
 include(":htt4k-sample")
 include(":main")
+include(":coroutines:chapter01")

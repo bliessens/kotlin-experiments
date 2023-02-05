@@ -1,6 +1,7 @@
 plugins {
     id("kotlin")
-    `maven-publish`
+    id("maven-publish")
+    id("idea")
 }
 
 repositories {
@@ -9,6 +10,7 @@ repositories {
 
 dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
+//    api("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.8.10")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
@@ -26,10 +28,21 @@ publishing {
     }
 }
 
+tasks.withType<Test>() {
+    useJUnitPlatform()
+}
+
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+
+idea {
+    module {
+        isDownloadSources = true
+        isDownloadJavadoc = true
+    }
 }
