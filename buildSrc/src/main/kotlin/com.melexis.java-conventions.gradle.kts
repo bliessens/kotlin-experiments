@@ -1,8 +1,7 @@
 import com.melexis.Versions
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("kotlin")
+    kotlin("jvm")
     id("maven-publish")
     id("idea")
 }
@@ -12,11 +11,17 @@ repositories {
 }
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    // api("org.jetbrains.kotlin:kotlin-reflect")
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    }
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
     testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockito}")
     testImplementation("org.assertj:assertj-core:${Versions.assertj}")
 }
@@ -26,7 +31,7 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvmToolchain {
-         languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -42,7 +47,10 @@ tasks.withType<Test>() {
 
 //tasks.withType<KotlinCompile>() {
 //    kotlinOptions {
-//        freeCompilerArgs = listOf("-Xexplicit-api=strict")
+//        freeCompilerArgs = listOf(
+//            "-Xexplicit-api=strict", // force explicit visibility modifiers
+//            "-Xjsr305=strict" // something with @Nullable annotations ?!
+//        )
 //    }
 //}
 
