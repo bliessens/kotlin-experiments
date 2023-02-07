@@ -1,4 +1,7 @@
-val modules = listOf<String>("coroutines/chapter01")
+val modules = listOf<String>(
+    "coroutines/chapter01",
+    "dicontainer"
+)
 
 tasks.create("generateModuleSkeletons") {
 
