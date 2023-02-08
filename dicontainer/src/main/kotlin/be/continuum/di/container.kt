@@ -1,3 +1,5 @@
+package be.continuum.di
+
 import kotlin.properties.Delegates
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KClass
@@ -8,7 +10,7 @@ object DIContext {
     var singletons: Map<TypeInfo, Any> by Delegates.notNull()
 
     fun init(singletons: Map<TypeInfo, Any>) {
-        this.singletons = singletons.toMap()
+        DIContext.singletons = singletons.toMap()
     }
 
     inline fun <reified T> get(): T {
@@ -34,14 +36,14 @@ sealed interface TypeInfo {
 data class NamedTypeInfo(val type: KClass<*>, val name: String = "") : TypeInfo
 data class UnNamedTypeInfo(val type: KClass<*>) : TypeInfo
 
-inline fun <reified T> diInject() =
+inline fun <reified T> injectObject() =
     object : ReadOnlyProperty<Any?, T> {
         override fun getValue(thisRef: Any?, property: KProperty<*>): T {
             return DIContext.singletons[TypeInfo.typeOf(T::class)] as T
         }
     }
 
-inline fun <reified T> diInject(name: String = "") =
+inline fun <reified T> injectObject(name: String = "") =
     object : ReadOnlyProperty<Any?, T> {
         override fun getValue(thisRef: Any?, property: KProperty<*>): T {
             return DIContext.singletons[TypeInfo.typeOf(T::class, name)] as T

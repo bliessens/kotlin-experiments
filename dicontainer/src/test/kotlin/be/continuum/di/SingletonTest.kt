@@ -1,3 +1,5 @@
+package be.continuum.di
+
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
@@ -18,14 +20,14 @@ class SingletonTest {
 
         @Test
         fun retrieveSingleton() {
-            val service = app.get<Service>()
+            val service = DIContext.get<Service>()
 
             assertThat(service).isNotNull
         }
 
         @Test
         fun injectSingleton() {
-            val service: Service by diInject()
+            val service: Service by injectObject()
 
             assertThat(service).isNotNull
         }
@@ -41,7 +43,7 @@ class SingletonTest {
 
         @Test
         fun injectDependency() {
-            val controller: Controller by diInject()
+            val controller: Controller by injectObject()
 
             assertThat(controller).isNotNull
                 .hasNoNullFieldsOrProperties()
@@ -57,8 +59,8 @@ class SingletonTest {
 
         @Test
         fun injectSingletonWithQualifiedName() {
-            val service: Service by diInject(name = "default")
-            val secondary: Service by diInject(name = "secondary")
+            val service: Service by injectObject(name = "default")
+            val secondary: Service by injectObject(name = "secondary")
 
             assertThat(service).isNotNull
                 .hasFieldOrPropertyWithValue("name", "default")
@@ -70,7 +72,7 @@ class SingletonTest {
         @Disabled
         @Test
         fun injectWithoutQualifier() {
-            val service: Service by diInject()
+            val service: Service by injectObject()
 
             assertThat(service).isNotNull
         }
