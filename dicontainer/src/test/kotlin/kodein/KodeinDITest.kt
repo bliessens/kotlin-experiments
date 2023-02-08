@@ -9,10 +9,13 @@ import org.kodein.di.bind
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.delegate
+import org.kodein.di.factory
 import org.kodein.di.instance
+import org.kodein.di.multiton
 import org.kodein.di.provider
 import org.kodein.di.singleton
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.random.Random
 
 interface IComp
 class CompA : IComp
@@ -84,8 +87,7 @@ class KodeinDITest {
         fun name() {
             val b1 = di.instance<Builder>()
             val b2 = di.instance<Builder>()
-            assertThat(b1)
-                .isNotSameAs(b2)
+            assertThat(b1).isNotSameAs(b2)
         }
     }
 
@@ -176,6 +178,57 @@ class KodeinDITest {
             for ((type, bind) in context.container.tree.bindings) {
                 println("$type => ${bind.map { it.binding.description }.joinToString()}")
             }
+        }
+    }
+
+    class RandomDice(val nrOfSides: Int) {
+        val value: Int by lazy { random.nextInt(nrOfSides) }
+
+        companion object {
+            val random = Random(System.currentTimeMillis())
+        }
+
+        override fun toString(): String {
+            return "Dice($value/$nrOfSides)"
+        }
+    }
+
+    @Nested
+    inner class FactoryTest {
+        val di = DI {
+            bind<RandomDice> { factory { sides: Int -> RandomDice(sides) } }
+        }
+
+        @Test
+        fun testInjectFactory() {
+            val diceFactory: (Int) -> RandomDice by di.factory()
+
+            val dice = List(600) { diceFactory(4) }
+
+            dice.foldRight(setOf<RandomDice>()) { currentDice, acc ->
+                assertThat(acc).doesNotContain(currentDice)
+                acc + setOf(currentDice)
+            }
+        }
+    }
+
+    @Nested
+    inner class MultitonTest {
+        val di = DI {
+            bind<RandomDice> { multiton { sides: Int -> RandomDice(sides) } }
+        }
+
+        @Test
+        fun testMultitonBinding() {
+            val diceFactory: (Int) -> RandomDice by di.factory()
+
+            val dice5 = diceFactory(5)
+            val alsoDice5 = diceFactory(5)
+            val otherDice = diceFactory(2)
+
+            assertThat(dice5)
+                .isSameAs(alsoDice5)
+                .isNotSameAs(otherDice)
         }
     }
 }
