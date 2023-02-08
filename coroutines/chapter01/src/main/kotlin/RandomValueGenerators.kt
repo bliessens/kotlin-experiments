@@ -2,7 +2,7 @@ import kotlin.random.Random
 
 fun randomNumbers(
     max: Int = Int.MAX_VALUE,
-    seed: Long = System.currentTimeMillis()
+    seed: Long = System.currentTimeMillis(),
 ) = sequence {
     val random = Random(seed)
     while (true) {
@@ -12,7 +12,7 @@ fun randomNumbers(
 
 fun randomString(
     length: Int,
-    seed: Long = System.currentTimeMillis()
+    seed: Long = System.currentTimeMillis(),
 ) = sequence {
     val random = Random(seed)
     val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')

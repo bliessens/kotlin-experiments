@@ -17,7 +17,7 @@ fun main() {
         "Dave" to "Mary",
         "Mary" to "Pete",
         "Pete" to "Lucy",
-        "Lucy" to "Waldo"
+        "Lucy" to "Waldo",
     )
 
     val lookupName: (Request) -> Response = { request: Request ->
@@ -37,8 +37,8 @@ fun main() {
 
     routes(
         "/wheresWaldo" bind routes(
-            "/{name:.*}" bind Method.GET to lookupName
-        )
+            "/{name:.*}" bind Method.GET to lookupName,
+        ),
     ).asServer(Netty(8080))
         .start()
 }

@@ -49,7 +49,7 @@ class KodeinProxyTest {
 
     @Test
     fun testNewStatefulClientForEachRequest() {
-        val iterations  = 5
+        val iterations = 5
         val facade by di.instance<ServiceFacade>()
 
         repeat(iterations) { facade.callClient() }

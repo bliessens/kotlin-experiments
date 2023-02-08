@@ -9,7 +9,7 @@ class Derived : Base()
 
 open class BaseCaller {
     open fun Base.printFunctionInfo() {
-        println("Base extension function in BaseCaller")//1
+        println("Base extension function in BaseCaller") // 1
     }
 
     open fun Derived.printFunctionInfo() {
@@ -17,11 +17,11 @@ open class BaseCaller {
     }
 
     fun call(b: Base) {
-        b.printFunctionInfo()   // call the extension function
+        b.printFunctionInfo() // call the extension function
     }
 }
 
-class DerivedCaller: BaseCaller() {
+class DerivedCaller : BaseCaller() {
     override fun Base.printFunctionInfo() {
         println("Base extension function in DerivedCaller")
     }

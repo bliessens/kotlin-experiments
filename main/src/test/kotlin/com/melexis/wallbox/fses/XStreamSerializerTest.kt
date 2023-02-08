@@ -19,7 +19,7 @@ class XStreamSerializerTest {
       </wallBox>
       <wallBox reference="../wallBox"/>
     </com.melexis.wallbox.WallBoxRegisteredEvent>
-""".trimIndent()
+    """.trimIndent()
 
     @Test
     fun toXML() {

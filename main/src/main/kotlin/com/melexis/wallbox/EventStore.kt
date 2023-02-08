@@ -1,6 +1,5 @@
 package com.melexis.wallbox
 
-
 interface EventStore<E, I> {
     val keyValueDB: KeyValueDB<E, I>
 
@@ -12,7 +11,5 @@ interface EventStore<E, I> {
 }
 
 class KeyValueEventStore(
-    override val keyValueDB: KeyValueDB<AbstractWallBoxEvent, WallBoxId> = InMemoryKeyValueDB()
+    override val keyValueDB: KeyValueDB<AbstractWallBoxEvent, WallBoxId> = InMemoryKeyValueDB(),
 ) : EventStore<AbstractWallBoxEvent, WallBoxId>
-
-

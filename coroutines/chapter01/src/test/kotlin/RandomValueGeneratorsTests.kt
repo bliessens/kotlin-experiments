@@ -34,5 +34,4 @@ class RandomValuesTest {
         assertThat(values.distinct().count())
             .isEqualTo(values.count())
     }
-
 }

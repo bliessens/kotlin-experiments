@@ -11,7 +11,6 @@ class JavaInvariant {
 
         collectionCall(stringNames)
         collectionCall(charNames)
-
     }
 
     private fun collectionCall(col: Collection<CharSequence>) {
@@ -26,22 +25,18 @@ class JavaInvariant {
 
         genericCollectionCall(stringNames)
         genericCollectionCall(charNames)
-
     }
 
     fun <T : CharSequence> genericCollectionCall(col: Collection<T>) {
-
     }
 
-    class TextPrinter< /*in*/ /*out*/ T> {
+    class TextPrinter</*in*/ /*out*/ T> {
 
         fun doWith(values: Collection<T>) {
-
         }
 
         fun other(): List<T> {
             return emptyList()
         }
-
     }
 }

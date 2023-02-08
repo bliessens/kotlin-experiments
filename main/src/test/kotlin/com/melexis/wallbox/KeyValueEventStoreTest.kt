@@ -8,7 +8,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.verify
 
-
 class KeyValueEventStoreTest {
 
     val mock = mock(KeyValueDB::class.java) as KeyValueDB<AbstractWallBoxEvent, WallBoxId>
@@ -29,6 +28,5 @@ class KeyValueEventStoreTest {
         assertThat(eventsCaptor.firstValue)
             .hasSize(1)
             .containsExactly(WallBoxRegisteredEvent(wallBox))
-
     }
 }

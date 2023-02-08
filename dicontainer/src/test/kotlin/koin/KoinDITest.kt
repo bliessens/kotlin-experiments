@@ -23,10 +23,12 @@ class KoinDITest {
     @Test
     fun testKoinAwareInjection() {
         startKoin {
-            modules(module {
-                single<Repository>() { InMemoryRepository() }
-                single { Service(get()) }
-            })
+            modules(
+                module {
+                    single<Repository> { InMemoryRepository() }
+                    single { Service(get()) }
+                },
+            )
         }
 
         val inner = ApplicationUnderTest()

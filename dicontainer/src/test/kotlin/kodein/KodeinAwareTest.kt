@@ -8,7 +8,6 @@ import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
-
 interface Repository
 class InMemoryRepository : Repository
 class DIAwareService(override val di: DI) : DIAware {

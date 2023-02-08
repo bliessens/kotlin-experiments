@@ -35,7 +35,7 @@ fun loadGame(notation: List<String>): List<Piece> {
     }
 }
 
-//@JvmName("loadGameExtension")
-//fun List<String>.loadGame(): List<Piece> {
+// @JvmName("loadGameExtension")
+// fun List<String>.loadGame(): List<Piece> {
 //    return  loadGame(this)
-//}
+// }

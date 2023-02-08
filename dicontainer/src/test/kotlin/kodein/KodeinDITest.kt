@@ -110,7 +110,6 @@ class KodeinDITest {
 
             assertThat(ds).asString().isEqualTo("DataSource(local)")
         }
-
     }
 
     interface Inner

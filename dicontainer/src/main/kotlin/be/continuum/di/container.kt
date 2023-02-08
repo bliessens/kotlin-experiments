@@ -56,7 +56,6 @@ fun context(init: DIContextBuilder.() -> Unit): DIContext {
     return cb.build()
 }
 
-
 class DIContextBuilder {
 
     var singletons = mutableMapOf<TypeInfo, Any>()
@@ -74,4 +73,3 @@ class DIContextBuilder {
         return DIContext
     }
 }
-

@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Test
 class UniqueMaxTest {
 
     val foos = listOf(
-        Foo("one", 1), Foo("two", 2), Foo("one", 2),
-        Foo("two", 3), Foo("three", 1)
+        Foo("one", 1),
+        Foo("two", 2),
+        Foo("one", 2),
+        Foo("two", 3),
+        Foo("three", 1),
     )
 
     @Test
@@ -21,10 +24,9 @@ class UniqueMaxTest {
             .containsExactly(
                 Foo("one", 2),
                 Foo("two", 3),
-                Foo("three", 1)
+                Foo("three", 1),
             )
     }
 }
-
 
 data class Foo(val bar: String, val baz: Int)

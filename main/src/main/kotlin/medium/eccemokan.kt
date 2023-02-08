@@ -9,13 +9,13 @@ data class Address(
     var phone: String,
     var title: String,
     var no: String,
-    var city: String
+    var city: String,
 ) {
     private constructor(builder: Builder) : this(
         builder.phone,
         builder.title,
         builder.no,
-        builder.city
+        builder.city,
     )
 
     class Builder {
@@ -43,17 +43,13 @@ fun main() {
         city = "NewYork"
     }
 
-
     println(address)
     val file = File("src/main/kotlin/medium/eccemokan.kt")
-    println("Extension of '${file}' is '${file.fileExtension()}'")
+    println("Extension of '$file' is '${file.fileExtension()}'")
 
     println("334".length.times(3))
-
 }
-
 
 fun File.fileExtension(): String {
     return this.name.substring(this.name.lastIndexOf('.') + 1, this.name.length)
 }
-

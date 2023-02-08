@@ -24,5 +24,4 @@ class InMemoryKeyValueDBTest {
             .extracting(Function { event -> event.wallBox })
             .containsExactly(wallBoxId)
     }
-
 }

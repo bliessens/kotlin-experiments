@@ -1,6 +1,5 @@
 package com.melexis.wallbox
 
-
 class WallBoxService(val eventStore: EventStore<AbstractWallBoxEvent, WallBoxId>) {
 
     fun handle(command: AbstractWallBoxCommand) {
@@ -37,7 +36,6 @@ data class WallBoxId(val value: String) {
 
 abstract class AbstractWallBoxCommand(open val wallBox: WallBoxId)
 data class RegisterWallBoxCommand(override val wallBox: WallBoxId) : AbstractWallBoxCommand(wallBox)
-
 
 abstract class AbstractWallBoxEvent(open val wallBox: WallBoxId)
 data class WallBoxRegisteredEvent(override val wallBox: WallBoxId) : AbstractWallBoxEvent(wallBox)

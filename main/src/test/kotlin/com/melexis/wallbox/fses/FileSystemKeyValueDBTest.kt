@@ -35,24 +35,23 @@ class FileSystemKeyValueDBTest {
 
         @Test
         fun fileNameHasPaddedSequenceNumber() {
-
             assertThat(
                 DefaultFileNameGenerator(
                     ser,
-                    Serialized(1, Instant.now(), ByteArray(0))
-                )
+                    Serialized(1, Instant.now(), ByteArray(0)),
+                ),
             ).isEqualTo("event-001.data")
             assertThat(
                 DefaultFileNameGenerator(
                     ser,
-                    Serialized(99, Instant.now(), ByteArray(0))
-                )
+                    Serialized(99, Instant.now(), ByteArray(0)),
+                ),
             ).isEqualTo("event-099.data")
             assertThat(
                 DefaultFileNameGenerator(
                     ser,
-                    Serialized(123, Instant.now(), ByteArray(0))
-                )
+                    Serialized(123, Instant.now(), ByteArray(0)),
+                ),
             ).isEqualTo("event-123.data")
         }
 
@@ -75,7 +74,6 @@ class FileSystemKeyValueDBTest {
             assertThat(Instant.ofEpochMilli(newFile.lastModified()))
                 .isBeforeOrEqualTo(Instant.now())
                 .isAfter(Instant.now().minusSeconds(3))
-
         }
     }
 
@@ -86,13 +84,14 @@ class FileSystemKeyValueDBTest {
 
         @Test
         fun testWriteEvents(@TempDir tempFolder: File) {
-
             "".run { }
             val eventStore = FileSystemKeyValueDB(tempFolder, XStreamSerializer(clock = Clock.systemUTC()))
             val events = listOf(
-                WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox), WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox)
+                WallBoxRegisteredEvent(wallBox),
+                WallBoxRegisteredEvent(wallBox),
+                WallBoxRegisteredEvent(wallBox),
+                WallBoxRegisteredEvent(wallBox),
+                WallBoxRegisteredEvent(wallBox),
             )
 
             eventStore.persist(wallBox, events)
@@ -100,14 +99,13 @@ class FileSystemKeyValueDBTest {
             val expectedStorageDir = File(tempFolder, wallBox.toString())
             assertThat(expectedStorageDir).exists()
             assertThat(expectedStorageDir.listFiles()).hasSize(events.size)
-
         }
 
         @Test
         fun readEvents() {
             val eventStore = FileSystemKeyValueDB(
                 File("src/test/resources/eventStore"),
-                XStreamSerializer(clock = Clock.systemUTC())
+                XStreamSerializer(clock = Clock.systemUTC()),
             )
 
             val events = eventStore.load(wallBox)
@@ -116,7 +114,6 @@ class FileSystemKeyValueDBTest {
                 .hasSize(5)
                 .extracting<WallBoxId> { event -> event.wallBox }
                 .allMatch { id -> id.value == wallBox.value }
-
         }
     }
 }

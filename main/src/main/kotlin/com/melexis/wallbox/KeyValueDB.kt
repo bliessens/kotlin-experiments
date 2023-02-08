@@ -10,7 +10,7 @@ interface KeyValueDB<E, I> {
 }
 
 class InMemoryKeyValueDB(
-    private val eventsByAggregate: MutableMap<WallBoxId, List<AbstractWallBoxEvent>> = ConcurrentHashMap()
+    private val eventsByAggregate: MutableMap<WallBoxId, List<AbstractWallBoxEvent>> = ConcurrentHashMap(),
 ) : KeyValueDB<AbstractWallBoxEvent, WallBoxId> {
 
     override fun load(id: WallBoxId): List<AbstractWallBoxEvent> {

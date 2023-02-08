@@ -6,7 +6,6 @@ import com.melexis.wallbox.WallBoxId
 import java.io.File
 import java.time.Instant
 
-
 object DefaultFileNameGenerator : (Serializer, Serialized) -> String {
     override fun invoke(p1: Serializer, p2: Serialized): String {
         return String.format("event-%03d.%s", p2.seqNr, p1.fileExtension(p2))
@@ -16,9 +15,8 @@ object DefaultFileNameGenerator : (Serializer, Serialized) -> String {
 class FileSystemKeyValueDB(
     val rootDir: File,
     val serializer: Serializer,
-    val fileNameGenerator: (Serializer, Serialized) -> String = DefaultFileNameGenerator
+    val fileNameGenerator: (Serializer, Serialized) -> String = DefaultFileNameGenerator,
 ) : KeyValueDB<AbstractWallBoxEvent, WallBoxId> {
-
 
     override fun load(id: WallBoxId): List<AbstractWallBoxEvent> {
         val eventDir = File(rootDir, id.toString())
@@ -36,14 +34,12 @@ class FileSystemKeyValueDB(
             .forEach { serialized ->
                 File(eventDir, fileNameGenerator(serializer, serialized)).appendBytes(serialized.payload)
             }
-
     }
 }
 
 fun File.sequenceNumber(): Int {
     return this.name.substring(6, 9).toInt()
 }
-
 
 interface Serializer {
     fun <T> deserialize(ser: Serialized): T
@@ -54,12 +50,12 @@ interface Serializer {
 data class Serialized constructor(
     val seqNr: Int,
     val timestamp: Instant,
-    val payload: ByteArray
+    val payload: ByteArray,
 ) :
     Comparable<Serialized> {
 
     constructor(seqNr: Int, timestamp: Long, payload: ByteArray) :
-            this(seqNr, Instant.ofEpochMilli(timestamp), payload)
+        this(seqNr, Instant.ofEpochMilli(timestamp), payload)
 
     override fun compareTo(other: Serialized): Int {
         return seqNr.compareTo(other.seqNr)

@@ -1,6 +1,5 @@
 package patterns_in_kotlin
 
-
 data class Request(val endpoint: String)
 data class Response(val body: String)
 
@@ -60,14 +59,13 @@ class RequestProcessor : Processor {
     }
 }
 
-
 fun main() {
     val request = Request("https://example.com")
     val processor: Processor = CacheProcessor(
         Cache,
         LoggingProcessor.forProcessor(
-            RequestProcessor()
-        )
+            RequestProcessor(),
+        ),
     )
     println(processor.process(request))
     println(processor.process(request))
