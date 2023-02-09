@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.delegate
@@ -195,7 +196,8 @@ class KodeinDITest {
     @Nested
     inner class FactoryTest {
         val di = DI {
-            bind<RandomDice> { factory { sides: Int -> RandomDice(sides) } }
+            bind { factory { sides: Int -> RandomDice(sides) } }
+            bindFactory(tag = "same binding, different syntax") { sides: Int -> RandomDice(sides) }
         }
 
         @Test
