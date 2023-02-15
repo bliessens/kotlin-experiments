@@ -3,6 +3,7 @@ val modules = listOf<String>(
     "dicontainer",
     "java-interop",
     "klogger",
+    "pricing-dsl",
 )
 
 tasks.create("generateModuleSkeletons") {
