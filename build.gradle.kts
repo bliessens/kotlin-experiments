@@ -1,7 +1,8 @@
 val modules = listOf<String>(
     "coroutines/chapter01",
     "dicontainer",
-    "java-ts-builders"
+    "java-interop",
+    "klogger",
 )
 
 tasks.create("generateModuleSkeletons") {
