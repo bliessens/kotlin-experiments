@@ -13,19 +13,18 @@ interface KLogger {
     fun trace(msg: () -> String)
 
     companion object {
-        fun getLogger(implicitContext: () -> Unit): KLogger {
-            when {
-                isSlf4j() -> return Slf4jBindingLogger(LoggerFactory.getLogger(implicitContext::class.java.enclosingClass.name))
-                else -> error("Class org.slf4j.LoggerFactory not found")
-            }
+        fun getLogger(tag: String? = null, implicitContext: () -> Unit): KLogger {
+            return if (tag == null)
+                LoggerFactory.getLogger(implicitContext::class.java.enclosingClass.name).let {
+                    Slf4jBindingLogger(it)
+                }
+            else
+                LoggerFactory.getLogger(implicitContext::class.java.enclosingClass.name + ".[${tag}]").let {
+                    Slf4jBindingLogger(it)
+                }
         }
     }
 }
-
-private fun isSlf4j(): Boolean = runCatching {
-    ClassLoader.getSystemClassLoader().loadClass("org.slf4j.LoggerFactory")
-    Result.success(true)
-}.isSuccess
 
 private class Slf4jBindingLogger constructor(private val slf4jlog: Logger) : Logger by slf4jlog, KLogger {
 

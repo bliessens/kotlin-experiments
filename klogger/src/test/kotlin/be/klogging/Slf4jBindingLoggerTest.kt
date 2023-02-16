@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-
 val topLevelLogger = KLogger.getLogger { } as Logger
 
 object Singleton {
@@ -37,6 +36,13 @@ class Slf4jBindingLoggerTest {
         val methodLogger = KLogger.getLogger { } as Logger
 
         assertThat(methodLogger.name).isEqualTo(Slf4jBindingLoggerTest::class.qualifiedName)
+    }
+
+    @Test
+    fun testNameOfTaggedLogger() {
+        val methodLogger = KLogger.getLogger(tag = "myTag") { } as Logger
+
+        assertThat(methodLogger.name).isEqualTo(Slf4jBindingLoggerTest::class.qualifiedName + ".[myTag]")
     }
 
     @Test
