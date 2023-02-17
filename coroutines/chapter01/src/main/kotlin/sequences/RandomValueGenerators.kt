@@ -1,3 +1,5 @@
+package sequences
+
 import kotlin.random.Random
 
 fun randomNumbers(
