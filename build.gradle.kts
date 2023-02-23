@@ -4,6 +4,7 @@ val modules = listOf<String>(
     "java-interop",
     "klogger",
     "pricing-dsl",
+    "refactoring",
 )
 
 tasks.create("generateModuleSkeletons") {
