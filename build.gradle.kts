@@ -9,6 +9,7 @@ val modules = listOf<String>(
     "monoid",
     "parser-combinator",
     "result-monad",
+    "bintree",
 )
 
 tasks.create("generateModuleSkeletons") {
