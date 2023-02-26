@@ -6,6 +6,7 @@ val modules = listOf<String>(
     "pricing-dsl",
     "currying",
     "refactoring",
+    "bintree",
 )
 
 tasks.create("generateModuleSkeletons") {
