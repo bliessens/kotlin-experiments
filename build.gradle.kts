@@ -6,6 +6,7 @@ val modules = listOf<String>(
     "pricing-dsl",
     "currying",
     "refactoring",
+    "monoid",
 )
 
 tasks.create("generateModuleSkeletons") {
@@ -25,12 +26,11 @@ tasks.create("generateModuleSkeletons") {
                         plugins {
                             id("com.melexis.java-conventions")
                         }
-                         """.trimIndent()
+                        """.trimIndent(),
                     )
 
                     val projectPath = projectName.replace("/", ":")
                     File("${rootProject.projectDir}/settings.gradle.kts").appendText("include(\":${projectPath}\")\n")
-
                 }
             }
         }
