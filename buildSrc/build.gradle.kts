@@ -2,10 +2,10 @@ plugins {
     `kotlin-dsl`
 }
 
-val kotlin = "1.8.20"
+val kotlin = "1.9.0"
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin}")
+    api("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin")
 }
 
 repositories {
