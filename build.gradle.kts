@@ -7,6 +7,7 @@ val modules = listOf<String>(
     "currying",
     "refactoring",
     "monoid",
+    "parser-combinator",
 )
 
 tasks.create("generateModuleSkeletons") {
