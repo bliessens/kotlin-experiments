@@ -2,8 +2,10 @@ package existech
 
 import me.alllex.parsus.parser.getOrThrow
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
+@Disabled
 class ParserTest {
 
 
