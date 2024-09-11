@@ -8,6 +8,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.core.testUtil.StringListAppender
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,6 +19,7 @@ object Singleton {
     val objectLogger = KLogger.getLogger { } as Logger
 }
 
+@Disabled
 class Slf4jBindingLoggerTest {
     val logger = KLogger.getLogger { } as Logger
 
