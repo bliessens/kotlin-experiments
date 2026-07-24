@@ -4,13 +4,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class MapMonoidTest {
-
     object ListConcatenationMonoid {
+        operator fun invoke(
+            acc: List<Int>,
+            next: Int,
+        ) = acc + listOf(next)
 
-        operator fun invoke(acc: List<Int>, next: Int) = acc + listOf(next)
-
-        fun identity(): List<Int> =
-            emptyList()
+        fun identity(): List<Int> = emptyList()
     }
 
     @Test

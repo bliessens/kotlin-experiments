@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class StreamOpsWithFold {
-
     private val isEven: (Int) -> Boolean = { it.mod(2) == 0 }
 
     @Test
@@ -58,7 +57,6 @@ class StreamOpsWithFold {
         assertThat(actual).containsExactly(2)
     }
 
-
     @Test
     fun testAllMatch() {
         val list = listOf(1, 3, 5, 7, 9)
@@ -67,7 +65,6 @@ class StreamOpsWithFold {
 
         assertThat(actual).isTrue()
     }
-
 
     @Test
     fun testAnyMatch() {
@@ -87,7 +84,6 @@ class StreamOpsWithFold {
 
         assertThat(actual).isEqualTo(9)
     }
-
 
     @Test
     fun testTakeFirstN() {
