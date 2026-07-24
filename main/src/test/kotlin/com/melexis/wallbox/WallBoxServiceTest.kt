@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class WallBoxServiceTest {
-
     private val id: WallBoxId = WallBoxId("12345678900")
 
     val storageMap = mutableMapOf<WallBoxId, List<AbstractWallBoxEvent>>()

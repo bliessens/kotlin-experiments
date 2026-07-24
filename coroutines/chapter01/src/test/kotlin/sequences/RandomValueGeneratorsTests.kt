@@ -3,8 +3,7 @@ package sequences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RandomValuesTest {
-
+class RandomValueGeneratorsTests {
     @Test
     fun testRandomInts() {
         val values = randomNumbers(10).take(10)

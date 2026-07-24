@@ -23,12 +23,31 @@ import samples.BooleanExpression.Var
 
 sealed class BooleanExpression {
     object TRUE : BooleanExpression()
+
     object FALSE : BooleanExpression()
-    data class Var(val name: String) : BooleanExpression()
-    data class Not(val body: BooleanExpression) : BooleanExpression()
-    data class And(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression()
-    data class Or(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression()
-    data class Impl(val left: BooleanExpression, val right: BooleanExpression) : BooleanExpression()
+
+    data class Var(
+        val name: String,
+    ) : BooleanExpression()
+
+    data class Not(
+        val body: BooleanExpression,
+    ) : BooleanExpression()
+
+    data class And(
+        val left: BooleanExpression,
+        val right: BooleanExpression,
+    ) : BooleanExpression()
+
+    data class Or(
+        val left: BooleanExpression,
+        val right: BooleanExpression,
+    ) : BooleanExpression()
+
+    data class Impl(
+        val left: BooleanExpression,
+        val right: BooleanExpression,
+    ) : BooleanExpression()
 }
 
 object BooleanGrammar : Grammar<BooleanExpression>() {
@@ -50,7 +69,7 @@ object BooleanGrammar : Grammar<BooleanExpression>() {
     val braced by -lpar * ref(BooleanGrammar::expr) * -rpar
 
     val term: Parser<BooleanExpression> by
-    (tru map TRUE) or (fal map FALSE) or (id map { Var(it.text) }) or negation or braced
+        (tru map TRUE) or (fal map FALSE) or (id map { Var(it.text) }) or negation or braced
 
     val andChain by leftAssociative(term, and, ::And)
     val orChain by leftAssociative(andChain, or, ::Or)

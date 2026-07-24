@@ -6,17 +6,22 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 interface Service
-class ServiceImpl(val name: String = "") : Service
 
-class Controller(val service: Service)
+class ServiceImpl(
+    val name: String = "",
+) : Service
+
+class Controller(
+    val service: Service,
+)
 
 class SingletonTest {
-
     @Nested
     inner class SingletonTests {
-        val app = context {
-            singletonOf<Service> { ServiceImpl() }
-        }
+        val app =
+            context {
+                singletonOf<Service> { ServiceImpl() }
+            }
 
         @Test
         fun retrieveSingleton() {
@@ -35,37 +40,41 @@ class SingletonTest {
 
     @Nested
     inner class DependencyInjectionTests {
-
-        val app = context {
-            singletonOf<Service> { ServiceImpl() }
-            singletonOf { Controller(get()) }
-        }
+        val app =
+            context {
+                singletonOf<Service> { ServiceImpl() }
+                singletonOf { Controller(get()) }
+            }
 
         @Test
         fun injectDependency() {
             val controller: Controller by injectObject()
 
-            assertThat(controller).isNotNull
+            assertThat(controller)
+                .isNotNull
                 .hasNoNullFieldsOrProperties()
         }
     }
 
     @Nested
     inner class NamingTests {
-        val app = context {
-            singletonOf<Service>(name = "default") { ServiceImpl("default") }
-            singletonOf<Service>(name = "secondary") { ServiceImpl("secondary") }
-        }
+        val app =
+            context {
+                singletonOf<Service>(name = "default") { ServiceImpl("default") }
+                singletonOf<Service>(name = "secondary") { ServiceImpl("secondary") }
+            }
 
         @Test
         fun injectSingletonWithQualifiedName() {
             val service: Service by injectObject(name = "default")
             val secondary: Service by injectObject(name = "secondary")
 
-            assertThat(service).isNotNull
+            assertThat(service)
+                .isNotNull
                 .hasFieldOrPropertyWithValue("name", "default")
 
-            assertThat(secondary).isNotNull
+            assertThat(secondary)
+                .isNotNull
                 .hasFieldOrPropertyWithValue("name", "secondary")
         }
 

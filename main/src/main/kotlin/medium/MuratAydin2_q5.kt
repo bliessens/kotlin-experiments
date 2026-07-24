@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package medium
 
 val lazyValue: String by lazy {

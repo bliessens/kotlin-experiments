@@ -6,17 +6,15 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.time.Clock
 import java.time.Instant
 
-class JacksonSerializer(val mapper: ObjectMapper = jacksonObjectMapper(), val clock: Clock) : Serializer {
+class JacksonSerializer(
+    val mapper: ObjectMapper = jacksonObjectMapper(),
+    val clock: Clock,
+) : Serializer {
+    override inline fun <T> deserialize(ser: Serialized): T =
+        mapper.readValue(ser.payload.inputStream(), object : TypeReference<T>() {})
 
-    override inline fun <T> deserialize(ser: Serialized): T {
-        return mapper.readValue(ser.payload.inputStream(), object : TypeReference<T>() {})
-    }
+    override fun <T> serialize(event: T): Serialized =
+        Serialized(-1, Instant.now(clock), mapper.writeValueAsBytes(event))
 
-    override fun <T> serialize(event: T): Serialized {
-        return Serialized(-1, Instant.now(clock), mapper.writeValueAsBytes(event))
-    }
-
-    override fun fileExtension(ser: Serialized): String {
-        return "json"
-    }
+    override fun fileExtension(ser: Serialized): String = "json"
 }

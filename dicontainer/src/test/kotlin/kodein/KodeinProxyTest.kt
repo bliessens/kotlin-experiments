@@ -26,13 +26,15 @@ class StatefulClientImpl : StatefulClient {
     override fun doRequest(): String = "[StatefulClientImpl.$instanceCounter]"
 }
 
-class ServiceFacade(val client: StatefulClient) {
-    fun callClient(): String {
-        return client.doRequest()
-    }
+class ServiceFacade(
+    val client: StatefulClient,
+) {
+    fun callClient(): String = client.doRequest()
 }
 
-class ClientProxy(val di: DI) : StatefulClient {
+class ClientProxy(
+    val di: DI,
+) : StatefulClient {
     override fun doRequest(): String {
         val delegate by di.instance<StatefulClient>()
         return delegate.doRequest()
@@ -40,7 +42,6 @@ class ClientProxy(val di: DI) : StatefulClient {
 }
 
 class KodeinProxyTest {
-
     @BeforeEach
     fun setUp() {
         StatefulClientImpl.instanceCounter = 0
@@ -48,14 +49,16 @@ class KodeinProxyTest {
 
     @Nested
     inner class SplitDIContext {
-        val clientDI = DI {
-            bind<StatefulClient> { provider { StatefulClientImpl() } }
-        }
+        val clientDI =
+            DI {
+                bind<StatefulClient> { provider { StatefulClientImpl() } }
+            }
 
-        val di = DI {
-            bind { singleton { ClientProxy(clientDI) } }
-            bind { singleton { ServiceFacade(instance()) } }
-        }
+        val di =
+            DI {
+                bind { singleton { ClientProxy(clientDI) } }
+                bind { singleton { ServiceFacade(instance()) } }
+            }
 
         @Test
         fun testNewStatefulClientForEachRequest() {
@@ -70,12 +73,12 @@ class KodeinProxyTest {
 
     @Nested
     inner class InjectDIContext {
-
-        val unified = DI {
-            bind<StatefulClient> { provider { StatefulClientImpl() } }
-            bind<StatefulClient>(tag = "proxy") { singleton { ClientProxy(di) } }
-            bind { singleton { ServiceFacade(instance(tag = "proxy")) } }
-        }
+        val unified =
+            DI {
+                bind<StatefulClient> { provider { StatefulClientImpl() } }
+                bind<StatefulClient>(tag = "proxy") { singleton { ClientProxy(di) } }
+                bind { singleton { ServiceFacade(instance(tag = "proxy")) } }
+            }
 
         @Test
         fun testNewStatefulClientForEachRequest() {
@@ -86,6 +89,5 @@ class KodeinProxyTest {
 
             assertThat(StatefulClientImpl.instanceCounter).isEqualTo(iterations)
         }
-
     }
 }

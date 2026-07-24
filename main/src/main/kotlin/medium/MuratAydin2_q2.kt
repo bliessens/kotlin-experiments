@@ -1,9 +1,12 @@
+@file:Suppress("ktlint:standard:filename")
+
 package medium
 
 class C {
-    private fun getObject() = object {
-        val x: String = "x"
-    }
+    private fun getObject() =
+        object {
+            val x: String = "x"
+        }
 
     fun printX() {
         println(getObject().x)

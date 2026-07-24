@@ -19,20 +19,22 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.random.Random
 
 interface IComp
+
 class CompA : IComp
-class CompB(val a: CompA) {
-    override fun toString(): String {
-        return "B references $a"
-    }
+
+class CompB(
+    val a: CompA,
+) {
+    override fun toString(): String = "B references $a"
 }
 
 class KodeinDITest {
-
     @Test
     fun bindImplementationToInterfaceType() {
-        val di = DI {
-            bindSingleton<IComp> { CompA() }
-        }
+        val di =
+            DI {
+                bindSingleton<IComp> { CompA() }
+            }
 
         val comp by di.instance<IComp>()
 
@@ -41,9 +43,10 @@ class KodeinDITest {
 
     @Test
     fun cannotResolveUnboundInterface() {
-        val di = DI {
-            singleton { CompA() }
-        }
+        val di =
+            DI {
+                singleton { CompA() }
+            }
 
         assertThrows<DI.NotFoundException> {
             val comp by di.instance<IComp>()
@@ -63,9 +66,10 @@ class KodeinDITest {
 
         @Test
         fun testEagerSingletonCreation() {
-            val di = DI {
-                bindSingleton { Flag() }
-            }
+            val di =
+                DI {
+                    bindSingleton { Flag() }
+                }
 
             assertThat(created).isFalse
             val flag by di.instance<Flag>()
@@ -75,14 +79,15 @@ class KodeinDITest {
     }
 
     interface Builder
+
     inner class ABuilder : Builder
 
     @Nested
     inner class NonSingletons {
-
-        val di = DI {
-            bindProvider<Builder> { ABuilder() }
-        }
+        val di =
+            DI {
+                bindProvider<Builder> { ABuilder() }
+            }
 
         @Test
         fun name() {
@@ -94,16 +99,19 @@ class KodeinDITest {
 
     interface DataSource
 
-    class SimpleDS(val name: String) : DataSource {
+    class SimpleDS(
+        val name: String,
+    ) : DataSource {
         override fun toString(): String = "DataSource($name)"
     }
 
     @Nested
     inner class QualifiedObjects {
-        val di = DI {
-            bindSingleton<DataSource>(tag = "local") { SimpleDS("local") }
-            bindSingleton<DataSource>(tag = "remote") { SimpleDS("remote") }
-        }
+        val di =
+            DI {
+                bindSingleton<DataSource>(tag = "local") { SimpleDS("local") }
+                bindSingleton<DataSource>(tag = "remote") { SimpleDS("remote") }
+            }
 
         @Test
         fun shouldResolveLocalDataSource() {
@@ -115,27 +123,28 @@ class KodeinDITest {
 
     interface Inner
 
-    class Outer(val inner: Inner) {
-        override fun toString(): String {
-            return "Outer with $inner"
-        }
+    class Outer(
+        val inner: Inner,
+    ) {
+        override fun toString(): String = "Outer with $inner"
     }
 
-    class Outer2(val inner: Inner) {
-        override fun toString(): String {
-            return "Outer() with $inner"
-        }
+    class Outer2(
+        val inner: Inner,
+    ) {
+        override fun toString(): String = "Outer() with $inner"
     }
 
     class InnerImpl : Inner
 
     @Nested
     inner class ClashingScopes {
-        val di = DI {
-            bind<Inner> { provider { InnerImpl() } }
-            bind { singleton { Outer(instance()) } }
-            bind<Outer2> { provider { Outer2(instance()) } }
-        }
+        val di =
+            DI {
+                bind<Inner> { provider { InnerImpl() } }
+                bind { singleton { Outer(instance()) } }
+                bind<Outer2> { provider { Outer2(instance()) } }
+            }
 
         @Test
         fun singletonWithInjectedProvider() {
@@ -157,14 +166,16 @@ class KodeinDITest {
 
     @Nested
     inner class ModuleVsDi {
-        val module = DI.Module(name = "base", prefix = "a") {
-            bindSingleton { CompA() }
-            delegate<IComp>().to<CompA>()
-        }
-        val context = DI {
-            import(module)
-            bindSingleton { CompB(instance()) }
-        }
+        val module =
+            DI.Module(name = "base", prefix = "a") {
+                bindSingleton { CompA() }
+                delegate<IComp>().to<CompA>()
+            }
+        val context =
+            DI {
+                import(module)
+                bindSingleton { CompB(instance()) }
+            }
 
         @Test
         fun injectFromModule() {
@@ -181,24 +192,25 @@ class KodeinDITest {
         }
     }
 
-    class RandomDice(val nrOfSides: Int) {
+    class RandomDice(
+        val nrOfSides: Int,
+    ) {
         val value: Int by lazy { random.nextInt(nrOfSides) }
 
         companion object {
             val random = Random(System.currentTimeMillis())
         }
 
-        override fun toString(): String {
-            return "Dice($value/$nrOfSides)"
-        }
+        override fun toString(): String = "Dice($value/$nrOfSides)"
     }
 
     @Nested
     inner class FactoryTest {
-        val di = DI {
-            bind { factory { sides: Int -> RandomDice(sides) } }
-            bindFactory(tag = "same binding, different syntax") { sides: Int -> RandomDice(sides) }
-        }
+        val di =
+            DI {
+                bind { factory { sides: Int -> RandomDice(sides) } }
+                bindFactory(tag = "same binding, different syntax") { sides: Int -> RandomDice(sides) }
+            }
 
         @Test
         fun testInjectFactory() {
@@ -215,9 +227,10 @@ class KodeinDITest {
 
     @Nested
     inner class MultitonTest {
-        val di = DI {
-            bind<RandomDice> { multiton { sides: Int -> RandomDice(sides) } }
-        }
+        val di =
+            DI {
+                bind<RandomDice> { multiton { sides: Int -> RandomDice(sides) } }
+            }
 
         @Test
         fun testMultitonBinding() {

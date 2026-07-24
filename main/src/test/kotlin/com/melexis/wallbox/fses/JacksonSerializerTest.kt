@@ -9,7 +9,6 @@ import java.time.Instant
 import java.time.ZoneId
 
 class JacksonSerializerTest {
-
     val ser = JacksonSerializer(clock = Clock.fixed(Instant.now(), ZoneId.systemDefault()))
 
     val json = "{\"wallBox\":{\"value\":\"123456\"}}"

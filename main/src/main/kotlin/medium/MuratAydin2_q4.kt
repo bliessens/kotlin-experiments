@@ -1,16 +1,26 @@
+@file:Suppress("ktlint:standard:filename")
+
 package medium
 
 interface Q4Base {
     val message: String
+
     fun print()
 }
 
-class Q4BaseImpl(val x: Int) : Q4Base {
+class Q4BaseImpl(
+    val x: Int,
+) : Q4Base {
     override val message = "BaseImpl: x = $x"
-    override fun print() { println(message) }
+
+    override fun print() {
+        println(message)
+    }
 }
 
-class Q4Derived(b: Q4Base) : Q4Base by b {
+class Q4Derived(
+    b: Q4Base,
+) : Q4Base by b {
     // This property is not accessed from b's implementation of `print`
     override val message = "Message of Derived"
 }

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package medium
 
 /**
@@ -8,7 +10,9 @@ interface Printable {
 }
 
 @JvmInline
-value class Name(val s: String) : Printable {
+value class Name(
+    val s: String,
+) : Printable {
     override fun prettyPrint(): String = "Let's $s!"
 }
 

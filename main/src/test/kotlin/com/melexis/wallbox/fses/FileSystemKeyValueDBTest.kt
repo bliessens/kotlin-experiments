@@ -15,7 +15,7 @@ import java.time.Clock
 import java.time.Instant
 
 class FileSystemKeyValueDBTest {
-
+    @Suppress("ktlint:standard:class-naming")
     object ser : Serializer {
         override fun <T> deserialize(ser: Serialized): T {
             TODO("Intentionally not implemented")
@@ -25,14 +25,11 @@ class FileSystemKeyValueDBTest {
             TODO("Intentionally not implemented")
         }
 
-        override fun fileExtension(ser: Serialized): String {
-            return "data"
-        }
+        override fun fileExtension(ser: Serialized): String = "data"
     }
 
     @Nested
     inner class FileNaming {
-
         @Test
         fun fileNameHasPaddedSequenceNumber() {
             assertThat(
@@ -65,9 +62,10 @@ class FileSystemKeyValueDBTest {
 
     @Nested
     inner class Serialization {
-
         @Test
-        fun testConversionOfFileModifiedDateToInstant(@TempDir tempFolder: File) {
+        fun testConversionOfFileModifiedDateToInstant(
+            @TempDir tempFolder: File,
+        ) {
             val newFile = File(tempFolder, "dfdsafsf")
             newFile.createNewFile()
 
@@ -79,20 +77,22 @@ class FileSystemKeyValueDBTest {
 
     @Nested
     inner class EventStore {
-
         val wallBox = WallBoxId("654321")
 
         @Test
-        fun testWriteEvents(@TempDir tempFolder: File) {
+        fun testWriteEvents(
+            @TempDir tempFolder: File,
+        ) {
             "".run { }
             val eventStore = FileSystemKeyValueDB(tempFolder, XStreamSerializer(clock = Clock.systemUTC()))
-            val events = listOf(
-                WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox),
-                WallBoxRegisteredEvent(wallBox),
-            )
+            val events =
+                listOf(
+                    WallBoxRegisteredEvent(wallBox),
+                    WallBoxRegisteredEvent(wallBox),
+                    WallBoxRegisteredEvent(wallBox),
+                    WallBoxRegisteredEvent(wallBox),
+                    WallBoxRegisteredEvent(wallBox),
+                )
 
             eventStore.persist(wallBox, events)
 
@@ -103,10 +103,11 @@ class FileSystemKeyValueDBTest {
 
         @Test
         fun readEvents() {
-            val eventStore = FileSystemKeyValueDB(
-                File("src/test/resources/eventStore"),
-                XStreamSerializer(clock = Clock.systemUTC()),
-            )
+            val eventStore =
+                FileSystemKeyValueDB(
+                    File("src/test/resources/eventStore"),
+                    XStreamSerializer(clock = Clock.systemUTC()),
+                )
 
             val events = eventStore.load(wallBox)
 

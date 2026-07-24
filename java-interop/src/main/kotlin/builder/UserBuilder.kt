@@ -1,17 +1,13 @@
 package builder
 
-
-fun user(creator: UserBuilder.() -> Unit): User {
-    return UserBuilder().apply(creator).build()
-}
+fun user(creator: UserBuilder.() -> Unit): User = UserBuilder().apply(creator).build()
 
 fun User.displayName() = "${this.firstName}, ${this.lastName}"
 
 class UserBuilder {
-
-    lateinit private var email: String
-    lateinit private var firstName: String
-    lateinit private var lastName: String
+    private lateinit var email: String
+    private lateinit var firstName: String
+    private lateinit var lastName: String
 
     fun email(value: String) {
         this.email = value
@@ -32,4 +28,3 @@ class UserBuilder {
         return User(firstName, lastName, email)
     }
 }
-

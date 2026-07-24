@@ -13,13 +13,26 @@ import me.alllex.parsus.parser.unaryMinus
 import me.alllex.parsus.token.literalToken
 import me.alllex.parsus.token.regexToken
 
-
 sealed class SExpression {
-    data class Int(val value: Long) : SExpression()
-    data class Num(val value: Double) : SExpression()
-    data class Str(val value: String) : SExpression()
-    data class Sym(val value: String) : SExpression()
-    data class Lst(val value: List<SExpression>) : SExpression() {
+    data class Int(
+        val value: Long,
+    ) : SExpression()
+
+    data class Num(
+        val value: Double,
+    ) : SExpression()
+
+    data class Str(
+        val value: String,
+    ) : SExpression()
+
+    data class Sym(
+        val value: String,
+    ) : SExpression()
+
+    data class Lst(
+        val value: List<SExpression>,
+    ) : SExpression() {
         constructor(vararg value: SExpression) : this(value.toList())
     }
 }

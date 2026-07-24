@@ -8,18 +8,20 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.dsl.module
 
 interface Repository
+
 class InMemoryRepository : Repository
-class Service(val a: Repository)
+
+class Service(
+    val a: Repository,
+)
 
 class ApplicationUnderTest : KoinComponent {
     val service: Service by inject()
-    override fun toString(): String {
-        return "Application with $service"
-    }
+
+    override fun toString(): String = "Application with $service"
 }
 
 class KoinDITest {
-
     @Test
     fun testKoinAwareInjection() {
         startKoin {

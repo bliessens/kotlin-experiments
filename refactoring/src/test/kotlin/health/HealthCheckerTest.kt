@@ -9,11 +9,14 @@ import java.io.IOException
 import java.util.Optional
 
 class HealthCheckerTest {
-    private var NOK = "NOK"
-    private var READY = "READY"
+    private var nok = "NOK"
+    private var ready = "READY"
 
     @Throws(IOException::class)
-    private fun mockKafkaConnectorUtil(readyAnswer: Optional<String>, aliveAnswer: Optional<String>): ConnectorUtil {
+    private fun mockKafkaConnectorUtil(
+        readyAnswer: Optional<String>,
+        aliveAnswer: Optional<String>,
+    ): ConnectorUtil {
         val kafkaConnectorUtil = Mockito.mock(ConnectorUtil::class.java)
         Mockito.`when`(kafkaConnectorUtil.getConnectorStatus(ConnectorUtil.ProbeType.READY)).thenReturn(readyAnswer)
         Mockito.`when`(kafkaConnectorUtil.getConnectorStatus(ConnectorUtil.ProbeType.ALIVE)).thenReturn(aliveAnswer)
@@ -28,7 +31,10 @@ class HealthCheckerTest {
         assertThat(healthResult.status).isEqualTo(Status.UP)
     }
 
-    private fun verifyHealthIsInError(healthResult: Health, expectedError: String) {
+    private fun verifyHealthIsInError(
+        healthResult: Health,
+        expectedError: String,
+    ) {
         assertThat(healthResult.status).isEqualTo(Status.DOWN)
         assertThat(healthResult.details["error"].toString()).isEqualTo(expectedError)
     }
@@ -36,18 +42,18 @@ class HealthCheckerTest {
     @Test
     @Throws(IOException::class)
     fun kafkaConnectorNokTest() {
-        val healthChecker = HealthChecker(mockKafkaConnectorUtil(Optional.empty(), Optional.of(NOK)))
+        val healthChecker = HealthChecker(mockKafkaConnectorUtil(Optional.empty(), Optional.of(nok)))
         val healthResult = healthChecker.health()
-        val expectedError = "cluster is not alive:$NOK"
+        val expectedError = "cluster is not alive:$nok"
         verifyHealthIsInError(healthResult, expectedError)
     }
 
     @Test
     @Throws(IOException::class)
     fun kafkaConnectorNotReadyTest() {
-        val healthChecker = HealthChecker(mockKafkaConnectorUtil(Optional.of(READY), Optional.of(NOK)))
+        val healthChecker = HealthChecker(mockKafkaConnectorUtil(Optional.of(ready), Optional.of(nok)))
         val healthResult = healthChecker.health()
-        val expectedError = "cluster is not ready:$READY"
+        val expectedError = "cluster is not ready:$ready"
         verifyHealthIsInError(healthResult, expectedError)
     }
 
@@ -55,10 +61,10 @@ class HealthCheckerTest {
     @Throws(IOException::class)
     fun kafkaConnectorNotReachableTest() {
         val kafkaConnectorUtil = Mockito.mock(ConnectorUtil::class.java)
-        Mockito.`when`(kafkaConnectorUtil.getConnectorStatus(ConnectorUtil.ProbeType.READY))
-            .thenThrow(IOException(NOK))
+        Mockito
+            .`when`(kafkaConnectorUtil.getConnectorStatus(ConnectorUtil.ProbeType.READY))
+            .thenThrow(IOException(nok))
         val healthResult = HealthChecker(kafkaConnectorUtil).health()
-        verifyHealthIsInError(healthResult, "cannot get state of kafkaconnector cluster:$NOK")
+        verifyHealthIsInError(healthResult, "cannot get state of kafkaconnector cluster:$nok")
     }
-
 }

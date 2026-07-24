@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import java.util.function.Function
 
 class InMemoryKeyValueDBTest {
-
     val eventStore = InMemoryKeyValueDB()
 
     val wallBoxId = WallBoxId("123455678899")

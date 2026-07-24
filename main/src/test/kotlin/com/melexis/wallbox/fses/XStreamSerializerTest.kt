@@ -9,17 +9,17 @@ import java.time.Instant
 import java.time.ZoneId
 
 class XStreamSerializerTest {
-
     val ser = XStreamSerializer(clock = Clock.fixed(Instant.now(), ZoneId.systemDefault()))
 
-    val xml = """
-    <com.melexis.wallbox.WallBoxRegisteredEvent>
-      <wallBox defined-in="com.melexis.wallbox.AbstractWallBoxEvent">
-        <value>123456</value>
-      </wallBox>
-      <wallBox reference="../wallBox"/>
-    </com.melexis.wallbox.WallBoxRegisteredEvent>
-    """.trimIndent()
+    val xml =
+        """
+        <com.melexis.wallbox.WallBoxRegisteredEvent>
+          <wallBox defined-in="com.melexis.wallbox.AbstractWallBoxEvent">
+            <value>123456</value>
+          </wallBox>
+          <wallBox reference="../wallBox"/>
+        </com.melexis.wallbox.WallBoxRegisteredEvent>
+        """.trimIndent()
 
     @Test
     fun toXML() {

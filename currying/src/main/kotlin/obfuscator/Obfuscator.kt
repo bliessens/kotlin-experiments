@@ -7,5 +7,5 @@ val stringObfuscator = { replace: Regex, replacement: String, input: String ->
 val curriedObfuscator: (Regex) -> (String) -> (String) -> String = stringObfuscator.curried()
 
 fun pwdObfuscator(input: String) = stringObfuscator(".".toRegex(), "*", input)
-val curriedPwdObfuscator = curriedObfuscator(".".toRegex()).invoke("*")
 
+val curriedPwdObfuscator = curriedObfuscator(".".toRegex()).invoke("*")

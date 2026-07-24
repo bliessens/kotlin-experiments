@@ -11,8 +11,7 @@ import me.alllex.parsus.token.literalToken
 import me.alllex.parsus.token.regexToken
 
 object STAGrammar : Grammar<STASection>() {
-
-//    init {
+    //    init {
 //        regexToken("\\s+", ignored = true)
 //    }
 
@@ -31,16 +30,14 @@ object STAGrammar : Grammar<STASection>() {
 
     val section by header * zeroOrMore(keyValuePair) map { it ->
 
-        Statistics(/*it.first.name,*/ it.second)
+        Statistics(it.second)
     }
     val ssection by header * maybe(keyValuePair) map { it ->
         Header(it.first.name, it.second?.let { listOf(it) } ?: emptyList())
     }
 
-
     override val root: Parser<STASection> by section
 }
-
 
 sealed class STASection
 

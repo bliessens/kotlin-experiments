@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:package-name")
+
 package patterns_in_kotlin
 
 // Chess game
@@ -12,7 +14,9 @@ fun main() {
     println(loadGame(notation))
 }
 
-sealed class Piece(open val position: String) {
+sealed class Piece(
+    open val position: String,
+) {
     companion object {
         fun fromNotation(piece: String): Piece {
             val pieceType = piece[0]
@@ -26,14 +30,18 @@ sealed class Piece(open val position: String) {
     }
 }
 
-data class Pawn(override val position: String) : Piece(position)
-data class Queen(override val position: String) : Piece(position)
+data class Pawn(
+    override val position: String,
+) : Piece(position)
 
-fun loadGame(notation: List<String>): List<Piece> {
-    return notation.map { piece ->
+data class Queen(
+    override val position: String,
+) : Piece(position)
+
+fun loadGame(notation: List<String>): List<Piece> =
+    notation.map { piece ->
         Piece.fromNotation(piece)
     }
-}
 
 // @JvmName("loadGameExtension")
 // fun List<String>.loadGame(): List<Piece> {

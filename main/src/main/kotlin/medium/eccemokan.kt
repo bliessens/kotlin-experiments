@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package medium
 
 import java.io.File
@@ -25,8 +27,11 @@ data class Address(
         lateinit var city: String
 
         fun phone(init: Builder.() -> String) = apply { phone = init() }
+
         fun title(init: Builder.() -> String) = apply { title = init() }
+
         fun no(init: Builder.() -> String) = apply { no = init() }
+
         fun city(init: Builder.() -> String) = apply { city = init() }
     }
 
@@ -36,12 +41,13 @@ data class Address(
 }
 
 fun main() {
-    val address = Address.build {
-        phone = "0 (555) 555 55 55"
-        title = "New Address"
-        no = "17A"
-        city = "NewYork"
-    }
+    val address =
+        Address.build {
+            phone = "0 (555) 555 55 55"
+            title = "New Address"
+            no = "17A"
+            city = "NewYork"
+        }
 
     println(address)
     val file = File("src/main/kotlin/medium/eccemokan.kt")
@@ -50,6 +56,4 @@ fun main() {
     println("334".length.times(3))
 }
 
-fun File.fileExtension(): String {
-    return this.name.substring(this.name.lastIndexOf('.') + 1, this.name.length)
-}
+fun File.fileExtension(): String = this.name.substring(this.name.lastIndexOf('.') + 1, this.name.length)

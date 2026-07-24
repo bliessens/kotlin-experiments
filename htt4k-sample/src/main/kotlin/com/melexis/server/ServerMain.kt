@@ -12,13 +12,14 @@ import org.http4k.server.Netty
 import org.http4k.server.asServer
 
 fun main() {
-    val names = mapOf(
-        "Jane" to "Dave",
-        "Dave" to "Mary",
-        "Mary" to "Pete",
-        "Pete" to "Lucy",
-        "Lucy" to "Waldo",
-    )
+    val names =
+        mapOf(
+            "Jane" to "Dave",
+            "Dave" to "Mary",
+            "Mary" to "Pete",
+            "Pete" to "Lucy",
+            "Lucy" to "Waldo",
+        )
 
     val lookupName: (Request) -> Response = { request: Request ->
         val name = request.path("name")
@@ -36,9 +37,10 @@ fun main() {
     }
 
     routes(
-        "/wheresWaldo" bind routes(
-            "/{name:.*}" bind Method.GET to lookupName,
-        ),
+        "/wheresWaldo" bind
+            routes(
+                "/{name:.*}" bind Method.GET to lookupName,
+            ),
     ).asServer(Netty(8080))
         .start()
 }
