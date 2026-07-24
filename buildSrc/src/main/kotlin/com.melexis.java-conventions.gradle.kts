@@ -31,9 +31,9 @@ dependencies {
 group = "com.melexis"
 version = "1.0-SNAPSHOT"
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(26))
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
@@ -43,26 +43,17 @@ publishing {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 ktlint {
     version.set("1.8.0")
 
     additionalEditorconfig.set(mapOf("max_line_length" to "120"))
 }
 
-// tasks.withType<KotlinCompile>() {
-//    kotlinOptions {
-//        freeCompilerArgs = listOf(
-//            "-Xexplicit-api=strict", // force explicit visibility modifiers
-//            "-Xjsr305=strict" // something with @Nullable annotations ?!
-//        )
-//    }
-// }
-
 tasks {
+    withType<Test> {
+        useJUnitPlatform()
+    }
+
     withType<Javadoc> {
         options.encoding = "UTF-8"
     }
@@ -71,13 +62,13 @@ tasks {
         when (this.name) {
             "compileKotlin" -> {
                 dependsOn(
-                    tasks.named("ktlintMainSourceSetFormat"),
-                    tasks.named("ktlintKotlinScriptFormat"),
+                    tasks.ktlintMainSourceSetFormat,
+                    tasks.ktlintKotlinScriptFormat,
                 )
             }
 
             "compileTestKotlin" -> {
-                dependsOn(tasks.named("ktlintTestSourceSetFormat"))
+                dependsOn(tasks.ktlintTestSourceSetFormat)
             }
         }
     }
