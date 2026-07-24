@@ -19,9 +19,10 @@ class BinTreeTest {
     fun traverseInOrder() {
         val tree = bintree(5, 4, 6, 3, 7, 2, 8, 9)
 
-        val list = buildList<Int> {
-            tree.traverse() { this.add(it) }
-        }
+        val list =
+            buildList {
+                tree.traverse { this.add(it) }
+            }
 
         assertThat(list)
             .containsExactly(2, 3, 4, 5, 6, 7, 8, 9)
@@ -34,7 +35,7 @@ class BinTreeTest {
         assertThat(
             tree
                 .map { it * 2 }
-                .all { it % 2 == 0 }
+                .all { it % 2 == 0 },
         ).isTrue()
 
         assertThat(tree.fold(0) { acc, item -> acc + item }).isEqualTo(44)
