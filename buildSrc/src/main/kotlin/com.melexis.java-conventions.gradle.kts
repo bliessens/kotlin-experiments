@@ -1,9 +1,11 @@
 import com.melexis.Versions
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
     id("maven-publish")
     id("idea")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {
@@ -45,17 +47,40 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-//tasks.withType<KotlinCompile>() {
+ktlint {
+    version.set("1.8.0")
+
+    additionalEditorconfig.set(mapOf("max_line_length" to "120"))
+}
+
+// tasks.withType<KotlinCompile>() {
 //    kotlinOptions {
 //        freeCompilerArgs = listOf(
 //            "-Xexplicit-api=strict", // force explicit visibility modifiers
 //            "-Xjsr305=strict" // something with @Nullable annotations ?!
 //        )
 //    }
-//}
+// }
 
-tasks.withType<Javadoc>() {
-    options.encoding = "UTF-8"
+tasks {
+    withType<Javadoc> {
+        options.encoding = "UTF-8"
+    }
+
+    withType<KotlinCompile> {
+        when (this.name) {
+            "compileKotlin" -> {
+                dependsOn(
+                    tasks.named("ktlintMainSourceSetFormat"),
+                    tasks.named("ktlintKotlinScriptFormat"),
+                )
+            }
+
+            "compileTestKotlin" -> {
+                dependsOn(tasks.named("ktlintTestSourceSetFormat"))
+            }
+        }
+    }
 }
 
 idea {
