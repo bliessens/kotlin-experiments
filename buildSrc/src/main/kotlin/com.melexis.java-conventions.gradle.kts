@@ -8,10 +8,6 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")

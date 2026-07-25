@@ -1,15 +1,16 @@
-val modules = listOf<String>(
-    "coroutines/chapter01",
-    "dicontainer",
-    "java-interop",
-    "klogger",
-    "pricing-dsl",
-    "currying",
-    "refactoring",
-    "monoid",
-    "parser-combinator",
-    "result-monad",
-)
+val modules =
+    listOf(
+        "coroutines/chapter01",
+        "dicontainer",
+        "java-interop",
+        "klogger",
+        "pricing-dsl",
+        "currying",
+        "refactoring",
+        "monoid",
+        "parser-combinator",
+        "result-monad",
+    )
 
 tasks.create("generateModuleSkeletons") {
 
