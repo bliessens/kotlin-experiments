@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.4.10"
 ktlint-gradle = "14.2.0"
-junit = "5.9.2"
+junit = "6.1.2"
 mockito-kotlin = "4.1.0"
 assertj = "3.24.2"
 xstream = "1.4.20"
