@@ -3,5 +3,7 @@ plugins {
 }
 
 dependencies {
+    testImplementation(libs.bundles.testing)
+
     runtimeOnly(kotlin("script-runtime"))
 }

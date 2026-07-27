@@ -1,4 +1,3 @@
-import com.melexis.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,14 +5,6 @@ plugins {
     id("maven-publish")
     id("idea")
     id("org.jlleitschuh.gradle.ktlint")
-}
-
-dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockito}")
-    testImplementation("org.assertj:assertj-core:${Versions.assertj}")
 }
 
 group = "com.melexis"

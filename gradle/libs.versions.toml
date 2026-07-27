@@ -1,0 +1,51 @@
+[versions]
+kotlin = "2.4.10"
+ktlint-gradle = "14.2.0"
+junit = "5.9.2"
+mockito-kotlin = "4.1.0"
+assertj = "3.24.2"
+xstream = "1.4.20"
+jackson = "2.14.2"
+http4k = "6.56.0.0"
+logback = "1.4.5"
+slf4j = "2.0.4"
+parsus = "0.6.1"
+koin = "4.2.2"
+kodein-di = "7.33.0"
+httpclient = "4.5.13"
+spring-core = "5.3.23"
+spring-boot-actuator = "2.7.5"
+
+[libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint-gradle" }
+
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+xstream = { module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+
+http4k-core = { module = "org.http4k:http4k-core", version.ref = "http4k" }
+http4k-server-netty = { module = "org.http4k:http4k-server-netty", version.ref = "http4k" }
+http4k-client-apache = { module = "org.http4k:http4k-client-apache", version.ref = "http4k" }
+
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+parsus = { module = "me.alllex.parsus:parsus", version.ref = "parsus" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
+
+httpclient = { module = "org.apache.httpcomponents:httpclient", version.ref = "httpclient" }
+spring-core = { module = "org.springframework:spring-core", version.ref = "spring-core" }
+spring-boot-actuator = { module = "org.springframework.boot:spring-boot-actuator", version.ref = "spring-boot-actuator" }
+
+[bundles]
+testing = ["kotlin-test-junit5", "junit-jupiter-api", "junit-jupiter-engine", "mockito-kotlin", "assertj-core"]
+

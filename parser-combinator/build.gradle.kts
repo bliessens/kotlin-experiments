@@ -4,7 +4,9 @@ plugins {
 }
 
 dependencies {
-    implementation("me.alllex.parsus:parsus:0.6.1")
+    testImplementation(libs.bundles.testing)
+
+    implementation(libs.parsus)
 
 //    implementation("io.arrow-kt:arrow-optics:1.2.0")
 //    ksp("io.arrow-kt:arrow-optics-ksp-plugin:1.2.0")
