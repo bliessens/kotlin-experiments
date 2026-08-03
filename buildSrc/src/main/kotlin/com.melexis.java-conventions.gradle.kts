@@ -37,6 +37,7 @@ tasks {
         options.encoding = "UTF-8"
     }
 
+/*
     withType<KotlinCompile> {
         when (this.name) {
             "compileKotlin" -> {
@@ -51,6 +52,7 @@ tasks {
             }
         }
     }
+*/
 }
 
 idea {
