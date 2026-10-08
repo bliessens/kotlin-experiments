@@ -3,8 +3,8 @@ package health
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import org.springframework.boot.actuate.health.Health
-import org.springframework.boot.actuate.health.Status
+import org.springframework.boot.health.contributor.Health
+import org.springframework.boot.health.contributor.Status
 import java.io.IOException
 import java.util.Optional
 
@@ -28,15 +28,15 @@ class HealthCheckerTest {
     fun kafkaConnectorHealthOkTest() {
         val healthChecker = HealthChecker(mockKafkaConnectorUtil(Optional.empty(), Optional.empty()))
         val healthResult = healthChecker.health()
-        assertThat(healthResult.status).isEqualTo(Status.UP)
+        assertThat(healthResult?.status).isEqualTo(Status.UP)
     }
 
     private fun verifyHealthIsInError(
-        healthResult: Health,
+        healthResult: Health?,
         expectedError: String,
     ) {
-        assertThat(healthResult.status).isEqualTo(Status.DOWN)
-        assertThat(healthResult.details["error"].toString()).isEqualTo(expectedError)
+        assertThat(healthResult?.status).isEqualTo(Status.DOWN)
+        assertThat(healthResult?.details["error"].toString()).isEqualTo(expectedError)
     }
 
     @Test
