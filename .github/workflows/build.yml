@@ -2,33 +2,33 @@ name: build
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "main" ]
   pull_request:
+  workflow_dispatch:
 
 permissions:
-  contents: write # required for tagging
+  contents: read
   checks: write # required for junit reporting
-  actions: write # managing uploaded artifacts
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-
 jobs:
   gradle_build:
-    timeout-minutes: ${{ inputs.timeout-minutes }}
-    container:
-      image: : "eclipse-temurin:25-jdk"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
-          fetch-depth: 0
-          fetch-tags: true
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v6
       - name: Build
         run: ./gradlew build
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v6
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: '**/build/**/TEST-*.xml'
+          report_paths: '**/build/test-results/**/TEST-*.xml'
