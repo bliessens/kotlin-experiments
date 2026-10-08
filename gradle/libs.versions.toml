@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 ktlint-gradle = "14.2.0"
 junit = "6.1.3"
 mockito-kotlin = "6.4.0"
@@ -13,7 +13,7 @@ parsus = "0.6.1"
 koin = "4.2.2"
 kodein-di = "7.33.0"
 httpclient = "4.5.14"
-spring-boot-actuator = "4.1.1"
+spring-boot = "4.1.1"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -42,7 +42,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
 
 httpclient = { module = "org.apache.httpcomponents:httpclient", version.ref = "httpclient" }
-spring-boot-health = { module = "org.springframework.boot:spring-boot-health", version.ref = "spring-boot-actuator" }
+spring-boot-health = { module = "org.springframework.boot:spring-boot-health", version.ref = "spring-boot" }
 
 [bundles]
 testing = ["kotlin-test-junit5", "junit-jupiter-api", "junit-jupiter-engine", "mockito-kotlin", "assertj-core"]
