@@ -14,7 +14,7 @@ koin = "4.2.2"
 kodein-di = "7.33.0"
 httpclient = "4.5.14"
 spring-core = "5.3.23"
-spring-boot-actuator = "2.7.5"
+spring-boot-actuator = "4.1.1"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
