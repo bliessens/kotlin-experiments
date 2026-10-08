@@ -13,7 +13,6 @@ parsus = "0.6.1"
 koin = "4.2.2"
 kodein-di = "7.33.0"
 httpclient = "4.5.14"
-spring-core = "5.3.23"
 spring-boot-actuator = "4.1.1"
 
 [libraries]
@@ -43,7 +42,6 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
 
 httpclient = { module = "org.apache.httpcomponents:httpclient", version.ref = "httpclient" }
-spring-core = { module = "org.springframework:spring-core", version.ref = "spring-core" }
 spring-boot-health = { module = "org.springframework.boot:spring-boot-health", version.ref = "spring-boot-actuator" }
 
 [bundles]
